@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guia_de_moteis/app/design_system/palette.dart';
 import 'package:guia_de_moteis/app/modules/motels_listing/widgets/app_bar_listing.dart';
+import 'package:guia_de_moteis/app/modules/motels_listing/widgets/carousel_motel_offer.dart';
 import 'package:guia_de_moteis/app/modules/motels_listing/widgets/filter_chip_app.dart';
 
 class MotelsListing extends StatefulWidget {
@@ -28,6 +29,10 @@ class _MotelsListingState extends State<MotelsListing> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  SizedBox(
+                    height: 8,
+                  ),
+                  CarouselMotelOffer(),
                   SizedBox(
                     height: 10,
                   ),
