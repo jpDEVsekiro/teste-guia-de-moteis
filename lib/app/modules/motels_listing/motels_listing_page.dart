@@ -3,6 +3,7 @@ import 'package:guia_de_moteis/app/design_system/palette.dart';
 import 'package:guia_de_moteis/app/modules/motels_listing/widgets/app_bar_listing.dart';
 import 'package:guia_de_moteis/app/modules/motels_listing/widgets/carousel_motel_offer.dart';
 import 'package:guia_de_moteis/app/modules/motels_listing/widgets/filter_chip_app.dart';
+import 'package:guia_de_moteis/app/modules/motels_listing/widgets/motel_card.dart';
 
 class MotelsListing extends StatefulWidget {
   const MotelsListing({super.key});
@@ -63,6 +64,22 @@ class _MotelsListingState extends State<MotelsListing> {
                     color: Palette.dividerColor,
                     height: 1,
                   ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                            itemCount: 100,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return MotelCard();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               )),
         ));

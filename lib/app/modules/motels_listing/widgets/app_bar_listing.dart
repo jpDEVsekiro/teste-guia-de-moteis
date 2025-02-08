@@ -48,32 +48,11 @@ class AppBarListing extends StatelessWidget implements PreferredSizeWidget {
           SizedBox(
             height: 18,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              DottedMenuButton(
-                child: Text('abc', style: TextStyle(color: Palette.secondary)),
-              ),
-              SizedBox(
-                width: 40,
-              ),
-              DottedMenuButton(
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.shield_moon_rounded,
-                      color: Palette.secondary,
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text('11 fev - 12 fev',
-                        style: TextStyle(color: Palette.secondary)),
-                  ],
-                ),
-              ),
-            ],
+          SizedBox(
+            width: 54,
+            child: DottedMenuButton(
+              child: Text('abc', style: TextStyle(color: Palette.secondary)),
+            ),
           )
         ],
       ),
