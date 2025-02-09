@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:guia_de_moteis/app/design_system/palette.dart';
-import 'package:guia_de_moteis/app/modules/motels_listing/widgets/custom_switch.dart';
-import 'package:guia_de_moteis/app/modules/motels_listing/widgets/dotted_menu_button.dart';
+import 'package:guia_de_moteis/src/modules/motels_listing/widgets/app_bar/custom_switch.dart';
+import 'package:guia_de_moteis/src/modules/motels_listing/widgets/app_bar/dotted_menu_button.dart';
+import 'package:guia_de_moteis/core/design_system/palette.dart';
 
-class AppBarListing extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarListing({super.key});
+class AppBarListingPage extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarListingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

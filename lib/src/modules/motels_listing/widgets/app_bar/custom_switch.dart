@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guia_de_moteis/app/design_system/palette.dart';
+import 'package:guia_de_moteis/core/design_system/palette.dart';
 
 class CustomSwitch extends StatefulWidget {
   final bool value;

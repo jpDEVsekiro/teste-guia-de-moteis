@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:guia_de_moteis/app/modules/motels_listing/motels_listing_page.dart';
+import 'package:get_it/get_it.dart';
+import 'package:guia_de_moteis/core/http/interface/i_http_repository.dart';
+import 'package:guia_de_moteis/core/http/repository/http_repository.dart';
+import 'package:guia_de_moteis/src/modules/motels_listing/data/interface/i_motels_listing_repository.dart';
+import 'package:guia_de_moteis/src/modules/motels_listing/data/repository/motels_listing_repository.dart';
+import 'package:guia_de_moteis/src/modules/motels_listing/motels_listing_page.dart';
+
+void setup() {
+  GetIt.I.registerSingleton<IHttpRepository>(HttpRepository());
+  GetIt.I
+      .registerSingleton<IMotelsListingRepository>(MoTelsListingRepository());
+}
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  setup();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

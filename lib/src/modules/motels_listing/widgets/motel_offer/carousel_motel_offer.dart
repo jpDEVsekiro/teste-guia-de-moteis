@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:guia_de_moteis/app/design_system/palette.dart';
-import 'package:guia_de_moteis/app/modules/motels_listing/widgets/carousel_motel_offer_card.dart';
+import 'package:guia_de_moteis/src/modules/motels_listing/widgets/motel_offer/carousel_motel_offer_card.dart';
+import 'package:guia_de_moteis/core/design_system/palette.dart';
 
 class CarouselMotelOffer extends StatefulWidget {
   const CarouselMotelOffer({super.key});
