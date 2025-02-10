@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:guia_de_moteis/src/modules/motels_listing/widgets/listing/suite_carousel.dart';
 import 'package:guia_de_moteis/core/design_system/palette.dart';
+import 'package:guia_de_moteis/core/models/motel_model.dart';
+import 'package:guia_de_moteis/src/modules/motels_listing/widgets/listing/suites_carousel/suite_carousel.dart';
 
 class MotelCard extends StatelessWidget {
-  const MotelCard({super.key});
+  const MotelCard({super.key, required this.motelModel});
+  final MotelModel motelModel;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,7 @@ class MotelCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.grey,
-                  backgroundImage: NetworkImage(
-                      'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80'),
+                  backgroundImage: NetworkImage(motelModel.logo ?? ''),
                 ),
                 SizedBox(
                   width: 10,
@@ -28,7 +29,7 @@ class MotelCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Motel Name',
+                      motelModel.name ?? 'Motel Name',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -36,7 +37,7 @@ class MotelCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Motel Address',
+                      motelModel.neighborhood ?? 'Motel Address',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -72,7 +73,7 @@ class MotelCard extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(right: 3),
                                 child: Text(
-                                  '4.5',
+                                  motelModel.averageRating.toString(),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 8,
@@ -87,7 +88,7 @@ class MotelCard extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          '1200 Avaliações',
+                          '${motelModel.qtyRating} Avaliações',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -115,7 +116,9 @@ class MotelCard extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          SuiteCarousel(),
+          SuiteCarousel(
+            suites: motelModel.suites ?? [],
+          ),
         ],
       ),
     );

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:guia_de_moteis/core/design_system/palette.dart';
+import 'package:guia_de_moteis/core/models/motel_model.dart';
 
 class CarouselMotelOfferCard extends StatelessWidget {
-  const CarouselMotelOfferCard(
-      {super.key, required this.img, required this.motelName});
-  final String img;
-  final String motelName;
+  const CarouselMotelOfferCard({super.key, required this.suite});
+  final Suites suite;
+  Period get period =>
+      suite.period!.firstWhere((element) => element.discount != null);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,24 @@ class CarouselMotelOfferCard extends StatelessWidget {
         elevation: 0.6,
         color: Palette.secondary,
         child: Padding(
-          padding: const EdgeInsets.all(9),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(children: [
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               child: Image.network(
-                img,
+                suite.photos?.first ?? '',
                 fit: BoxFit.fill,
-                width: 150,
-                height: 150,
+                width: 140,
+                height: 140,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return SizedBox(
+                    height: 140,
+                    width: 140,
+                  );
+                },
               ),
             ),
             SizedBox(
@@ -51,14 +61,14 @@ class CarouselMotelOfferCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            motelName,
+                            suite.motelName,
                             style: TextStyle(
                               color: Palette.textColor,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text('São Paulo - SP',
+                          Text(suite.neighborhood,
                               style: TextStyle(
                                 color: Palette.textColor,
                                 fontSize: 10,
@@ -80,7 +90,16 @@ class CarouselMotelOfferCard extends StatelessWidget {
                         SizedBox(
                           height: 5,
                         ),
-                        Text('30% de desconto'),
+                        Text(
+                            period.discountPercentageValue.toString() +
+                                '% de desconto',
+                            style: TextStyle(
+                              color: Palette.primary,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Palette.primary,
+                            )),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 3),
@@ -90,7 +109,7 @@ class CarouselMotelOfferCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Apartir de R\$ 70,00',
+                          'Apartir de ${period.formatedTotalValue}',
                           style: TextStyle(fontSize: 10),
                         ),
                         SizedBox(
@@ -113,6 +132,7 @@ class CarouselMotelOfferCard extends StatelessWidget {
                                   'Reservar',
                                   style: TextStyle(
                                     color: Palette.secondary,
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                   ),
                                 ),

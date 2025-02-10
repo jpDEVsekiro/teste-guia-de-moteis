@@ -40,7 +40,9 @@ class _MotelsListingState extends State<MotelsListing> {
                     SizedBox(
                       height: 8,
                     ),
-                    CarouselMotelOffer(),
+                    CarouselMotelOffer(
+                      motels: motels,
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -74,11 +76,13 @@ class _MotelsListingState extends State<MotelsListing> {
                     Column(
                       children: [
                         ListView.builder(
-                          itemCount: 100,
+                          itemCount: motels.length,
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return MotelCard();
+                            return MotelCard(
+                              motelModel: motels[index],
+                            );
                           },
                         ),
                       ],

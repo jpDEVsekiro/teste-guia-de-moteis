@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class MotelModel {
   String? name;
   String? logo;
@@ -9,7 +11,7 @@ class MotelModel {
   double? averageRating;
 
   MotelModel(
-      {this.name,
+      {required this.name,
       this.logo,
       this.neighborhood,
       this.distance,
@@ -19,7 +21,7 @@ class MotelModel {
       this.averageRating});
 
   MotelModel.fromJson(Map<String, dynamic> json) {
-    name = json['fantasia'];
+    name = json['fantasia'] ?? 'nome';
     logo = json['logo'];
     neighborhood = json['bairro'];
     distance = json['distancia'];
@@ -27,7 +29,8 @@ class MotelModel {
     if (json['suites'] != null) {
       suites = <Suites>[];
       json['suites'].forEach((v) {
-        suites!.add(new Suites.fromJson(v));
+        suites!.add(new Suites.fromJson(v,
+            motelName: name ?? 'nome', neighborhood: neighborhood ?? 'bairro'));
       });
     }
     qtyRating = json['qtdAvaliacoes'];
@@ -43,6 +46,8 @@ class Suites {
   List<Item>? item;
   List<CategoryItem>? categoryItems;
   List<Period>? period;
+  String motelName;
+  String neighborhood;
 
   Suites(
       {this.name,
@@ -51,9 +56,12 @@ class Suites {
       this.photos,
       this.item,
       this.categoryItems,
+      required this.motelName,
+      required this.neighborhood,
       this.period});
 
-  Suites.fromJson(Map<String, dynamic> json) {
+  Suites.fromJson(Map<String, dynamic> json,
+      {required this.motelName, required this.neighborhood}) {
     name = json['nome'];
     qty = json['qtd'];
     showQtyAvailable = json['exibirQtdDisponiveis'];
@@ -73,7 +81,7 @@ class Suites {
     if (json['periodos'] != null) {
       period = <Period>[];
       json['periodos'].forEach((v) {
-        period!.add(new Period.fromJson(v));
+        period!.add(new Period.fromJson(v, motelName: motelName));
       });
     }
   }
@@ -108,6 +116,7 @@ class Period {
   double? totalValue;
   bool? hasDiscount;
   double? discount;
+  String motelName;
 
   Period(
       {this.formatedTime,
@@ -115,14 +124,20 @@ class Period {
       this.value,
       this.totalValue,
       this.hasDiscount,
-      this.discount});
+      this.discount,
+      required this.motelName});
 
-  Period.fromJson(Map<String, dynamic> json) {
+  Period.fromJson(Map<String, dynamic> json, {required this.motelName}) {
     formatedTime = json['tempoFormatado'];
+    motelName = motelName;
     time = json['tempo'];
     value = json['valor'];
     totalValue = json['valorTotal'];
     hasDiscount = json['temCortesia'];
     discount = json['desconto']?['desconto'];
   }
+
+  int get discountPercentageValue => ((discount! / value!) * 100).floor();
+  String get formatedTotalValue =>
+      'R\$${NumberFormat('###.00', 'pt_BT').format(totalValue)}';
 }
