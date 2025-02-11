@@ -14,9 +14,10 @@ class SuiteCarousel extends StatefulWidget {
 class _SuiteCarouselState extends State<SuiteCarousel> {
   final CarouselSliderController _controller = CarouselSliderController();
   List<Suites> get suites => widget.suites;
-  int _current = 0;
+
   @override
   Widget build(BuildContext context) {
+    if (suites.isEmpty) return SizedBox();
     return CarouselSlider.builder(
       carouselController: _controller,
       itemCount: suites.length,
@@ -141,10 +142,7 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
             ),
             ListView.builder(
                 shrinkWrap: true,
-                itemCount: suites[itemIndex].period!.length >
-                        suites[_current].period!.length
-                    ? suites[_current].period?.length
-                    : suites[itemIndex].period?.length,
+                itemCount: suites[itemIndex].period!.length,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return PeriodCard(period: suites[itemIndex].period![index]);
@@ -157,12 +155,7 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
           enlargeCenterPage: false,
           enableInfiniteScroll: false,
           viewportFraction: 0.9,
-          onPageChanged: (index, reason) {
-            setState(() {
-              _current = index;
-            });
-          },
-          height: 390.0 + 93 * (suites[_current].period?.length ?? 1)),
+          height: 390.0 + 93 * 3),
     );
   }
 }

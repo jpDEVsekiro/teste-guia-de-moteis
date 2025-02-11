@@ -4,30 +4,30 @@ import 'package:guia_de_moteis/core/models/motel_model.dart';
 import 'package:guia_de_moteis/src/modules/motels_listing/data/interface/i_motels_listing_repository.dart';
 
 class MotelsListingController extends ChangeNotifier {
-  ValueNotifier<List<MotelModel>> motels = ValueNotifier([]);
-  ValueNotifier<List<String>> filter = ValueNotifier([]);
+  ValueNotifier<List<MotelModel>> allMotels = ValueNotifier([]);
+  ValueNotifier<List<MotelModel>> filterMotels = ValueNotifier([]);
+  ValueNotifier<List<String>> filters = ValueNotifier([]);
 
   final IMotelsListingRepository motelsListingRepository =
       GetIt.I<IMotelsListingRepository>();
 
-  List<CategoryItem> get categoryItems {
+  List<CategoryItem> get allCategoryItems {
     List<CategoryItem> items = [];
-    for (MotelModel motel in motels.value) {
-      for (Suites suites in motel.suites ?? []) {
-        for (CategoryItem category in suites.categoryItems ?? []) {
-          if (items.any(
-                (element) => element.nome == category.nome,
-              ) ==
-              false) items.add(category);
-        }
+    for (MotelModel motel in allMotels.value) {
+      for (CategoryItem category in motel.categoryItems) {
+        if (items.any(
+              (element) => element.nome == category.nome,
+            ) ==
+            false) items.add(category);
       }
     }
     return items;
   }
 
   init() async {
-    motels.value = await motelsListingRepository.getMotels();
-    print('Motel: ${motels.value[0].name}');
+    allMotels.value = await motelsListingRepository.getMotels();
+    filterMotels.value = allMotels.value;
+    print('Motel: ${allMotels.value[0].name}');
   }
 
   MotelsListingController() {
@@ -35,16 +35,32 @@ class MotelsListingController extends ChangeNotifier {
   }
 
   void onTapFavorite(int index) {
-    motels.value[index].favorite = !motels.value[index].favorite;
-    motels.notifyListeners();
+    allMotels.value[index].favorite = !allMotels.value[index].favorite;
+    allMotels.notifyListeners();
+    filterMotels.notifyListeners();
   }
 
   void filterByCategory(String category) {
-    if (filter.value.contains(category)) {
-      filter.value.remove(category);
+    if (filters.value.contains(category)) {
+      filters.value.remove(category);
     } else {
-      filter.value.add(category);
+      filters.value.add(category);
     }
-    filter.notifyListeners();
+    filterAllMotels();
+    filters.notifyListeners();
+  }
+
+  void filterAllMotels() {
+    List<MotelModel> filteredMotels = [];
+    if (filters.value.isEmpty) {
+      filterMotels.value = allMotels.value;
+      return;
+    }
+    for (MotelModel motel in allMotels.value) {
+      if (motel.filterSuites(filters.value).isNotEmpty) {
+        filteredMotels.add(motel);
+      }
+    }
+    filterMotels.value = filteredMotels;
   }
 }

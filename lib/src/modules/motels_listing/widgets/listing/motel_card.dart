@@ -5,8 +5,12 @@ import 'package:guia_de_moteis/src/modules/motels_listing/widgets/listing/suites
 
 class MotelCard extends StatelessWidget {
   const MotelCard(
-      {super.key, required this.motelModel, required this.onTapFavorite});
+      {super.key,
+      required this.motelModel,
+      required this.onTapFavorite,
+      required this.filters});
   final MotelModel motelModel;
+  final List<String> filters;
   final void Function()? onTapFavorite;
 
   @override
@@ -124,7 +128,7 @@ class MotelCard extends StatelessWidget {
             height: 10,
           ),
           SuiteCarousel(
-            suites: motelModel.suites ?? [],
+            suites: motelModel.filterSuites(filters),
           ),
         ],
       ),

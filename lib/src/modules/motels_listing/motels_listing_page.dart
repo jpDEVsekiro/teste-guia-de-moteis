@@ -38,25 +38,25 @@ class _MotelsListingState extends State<MotelsListing> {
                       height: 8,
                     ),
                     ValueListenableBuilder(
-                        valueListenable: controller.motels,
+                        valueListenable: controller.allMotels,
                         builder: (context, value, child) {
                           return CarouselMotelOffer(
                             motels: value,
                           );
                         }),
-                    SizedBox(
-                      height: 10,
-                    ),
                     ValueListenableBuilder(
-                        valueListenable: controller.motels,
+                        valueListenable: controller.allMotels,
                         builder: (context, value, child) {
                           return ValueListenableBuilder(
-                              valueListenable: controller.filter,
+                              valueListenable: controller.filters,
                               builder: (context, value, child) {
-                                return SizedBox(
-                                  height: 37,
+                                if (controller.allMotels.value.isEmpty)
+                                  return SizedBox();
+                                return Container(
+                                  height: 47,
                                   child: ListView.separated(
-                                    itemCount: controller.categoryItems.length,
+                                    itemCount:
+                                        controller.allCategoryItems.length + 1,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
                                     padding:
@@ -67,18 +67,66 @@ class _MotelsListingState extends State<MotelsListing> {
                                       );
                                     },
                                     itemBuilder: (context, index) {
-                                      return FilterChipApp(
-                                        label: controller
-                                                .categoryItems[index].nome ??
-                                            '',
-                                        selected: controller.filter.value
-                                            .contains(controller
-                                                .categoryItems[index].nome),
-                                        onTapFilterChip: () => controller
-                                            .filterByCategory(controller
-                                                    .categoryItems[index]
-                                                    .nome ??
-                                                ''),
+                                      if (index == 0) {
+                                        return Stack(children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 10),
+                                            child: FilterChipApp(
+                                              label: 'Filtros',
+                                              selected: false,
+                                              height: 37,
+                                              icon: Icon(
+                                                Icons.filter_list,
+                                                color: Palette.textColor,
+                                                size: 17,
+                                              ),
+                                            ),
+                                          ),
+                                          if (controller
+                                              .filters.value.isNotEmpty)
+                                            Positioned(
+                                              left: 0,
+                                              top: 0,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                margin: EdgeInsets.zero,
+                                                padding: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  color: Palette.primary,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Text(
+                                                  controller
+                                                      .filters.value.length
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                        ]);
+                                      }
+                                      index -= 1;
+                                      return Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: FilterChipApp(
+                                          label: controller
+                                                  .allCategoryItems[index]
+                                                  .nome ??
+                                              '',
+                                          selected: controller.filters.value
+                                              .contains(controller
+                                                  .allCategoryItems[index]
+                                                  .nome),
+                                          onTapFilterChip: () => controller
+                                              .filterByCategory(controller
+                                                      .allCategoryItems[index]
+                                                      .nome ??
+                                                  ''),
+                                        ),
                                       );
                                     },
                                   ),
@@ -95,7 +143,7 @@ class _MotelsListingState extends State<MotelsListing> {
                     Column(
                       children: [
                         ValueListenableBuilder(
-                            valueListenable: controller.motels,
+                            valueListenable: controller.filterMotels,
                             builder: (context, value, child) {
                               return ListView.builder(
                                 itemCount: value.length,
@@ -104,6 +152,7 @@ class _MotelsListingState extends State<MotelsListing> {
                                 itemBuilder: (context, index) {
                                   return MotelCard(
                                     motelModel: value[index],
+                                    filters: controller.filters.value,
                                     onTapFavorite: () =>
                                         controller.onTapFavorite(index),
                                   );

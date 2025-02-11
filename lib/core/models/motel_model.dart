@@ -38,6 +38,36 @@ class MotelModel {
     qtyRating = json['qtdAvaliacoes'];
     averageRating = json['media'];
   }
+
+  List<CategoryItem> get categoryItems {
+    List<CategoryItem> items = [];
+    for (Suites suites in suites ?? []) {
+      for (CategoryItem category in suites.categoryItems ?? []) {
+        if (items.any(
+              (element) => element.nome == category.nome,
+            ) ==
+            false) items.add(category);
+      }
+    }
+    return items;
+  }
+
+  List<Suites> filterSuites(List<String> filters) {
+    List<Suites> filteredSuites = [];
+    if (filters.isEmpty) return suites ?? [];
+    for (Suites suite in suites ?? []) {
+      for (String filter in filters) {
+        if (suite.categoryItems!.any((element) => element.nome == filter) ==
+            false) {
+          break;
+        }
+        if (filters.last == filter) {
+          filteredSuites.add(suite);
+        }
+      }
+    }
+    return filteredSuites;
+  }
 }
 
 class Suites {
