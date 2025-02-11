@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:guia_de_moteis/core/http/interface/i_http_repository.dart';
 import 'package:guia_de_moteis/core/http/repository/http_repository.dart';
@@ -10,9 +11,13 @@ void setup() {
   GetIt.I.registerSingleton<IHttpRepository>(HttpRepository());
   GetIt.I
       .registerSingleton<IMotelsListingRepository>(MoTelsListingRepository());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 }
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setup();
   runApp(const MyApp());
 }
