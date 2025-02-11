@@ -23,54 +23,57 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
       itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
         return Column(
           children: [
-            Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                color: Colors.white,
-                elevation: 0.6,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        child: Image.network(
-                          suites[itemIndex].photos?.first ?? '',
-                          fit: BoxFit.fill,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return SizedBox(
-                              height: 140,
-                              width: 140,
-                            );
-                          },
+            SizedBox(
+              height: 275,
+              child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: Colors.white,
+                  elevation: 0.6,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          child: Image.network(
+                            suites[itemIndex].photos?.first ?? '',
+                            fit: BoxFit.fill,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return SizedBox(
+                                height: 140,
+                                width: 140,
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    Text(suites[itemIndex].name ?? '',
-                        style: TextStyle(fontSize: 16)),
-                    if (suites[itemIndex].showQtyAvailable ?? false)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.wb_incandescent_rounded,
-                              color: Palette.primary, size: 14),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text('Só mais ${suites[itemIndex].qty} pelo app',
-                              style: TextStyle(
-                                  color: Palette.primary, fontSize: 12)),
-                        ],
+                      Text(suites[itemIndex].name ?? '',
+                          style: TextStyle(fontSize: 16)),
+                      if (suites[itemIndex].showQtyAvailable ?? false)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.wb_incandescent_rounded,
+                                color: Palette.primary, size: 14),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text('Só mais ${suites[itemIndex].qty} pelo app',
+                                style: TextStyle(
+                                    color: Palette.primary, fontSize: 12)),
+                          ],
+                        ),
+                      SizedBox(
+                        height: 8,
                       ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                  ],
-                )),
+                    ],
+                  )),
+            ),
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),

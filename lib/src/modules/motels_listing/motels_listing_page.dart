@@ -50,27 +50,40 @@ class _MotelsListingState extends State<MotelsListing> {
                     ValueListenableBuilder(
                         valueListenable: controller.motels,
                         builder: (context, value, child) {
-                          return SizedBox(
-                            height: 37,
-                            child: ListView.separated(
-                              itemCount: controller.categoryItems.length,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              separatorBuilder: (context, index) {
+                          return ValueListenableBuilder(
+                              valueListenable: controller.filter,
+                              builder: (context, value, child) {
                                 return SizedBox(
-                                  width: 10,
+                                  height: 37,
+                                  child: ListView.separated(
+                                    itemCount: controller.categoryItems.length,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        width: 10,
+                                      );
+                                    },
+                                    itemBuilder: (context, index) {
+                                      return FilterChipApp(
+                                        label: controller
+                                                .categoryItems[index].nome ??
+                                            '',
+                                        selected: controller.filter.value
+                                            .contains(controller
+                                                .categoryItems[index].nome),
+                                        onTapFilterChip: () => controller
+                                            .filterByCategory(controller
+                                                    .categoryItems[index]
+                                                    .nome ??
+                                                ''),
+                                      );
+                                    },
+                                  ),
                                 );
-                              },
-                              itemBuilder: (context, index) {
-                                return FilterChipApp(
-                                  label: controller.categoryItems[index].nome ??
-                                      '',
-                                  selected: false,
-                                );
-                              },
-                            ),
-                          );
+                              });
                         }),
                     SizedBox(
                       height: 12,
@@ -91,6 +104,8 @@ class _MotelsListingState extends State<MotelsListing> {
                                 itemBuilder: (context, index) {
                                   return MotelCard(
                                     motelModel: value[index],
+                                    onTapFavorite: () =>
+                                        controller.onTapFavorite(index),
                                   );
                                 },
                               );

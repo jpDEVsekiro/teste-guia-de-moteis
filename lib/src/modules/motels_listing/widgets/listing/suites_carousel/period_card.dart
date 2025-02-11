@@ -20,16 +20,51 @@ class PeriodCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(period.formatedTime ?? '',
-                  style: TextStyle(
-                    color: Palette.textColor,
-                    fontSize: 22,
-                  )),
-              Text(period.formatedTotalValue,
-                  style: TextStyle(
-                    color: Palette.textColor,
-                    fontSize: 18,
-                  )),
+              Row(
+                children: [
+                  Text(period.formatedTime ?? '',
+                      style: TextStyle(
+                        color: Palette.textColor,
+                        fontSize: 20,
+                      )),
+                  if (period.discount != null)
+                    Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(left: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          color: Palette.primary,
+                        ),
+                      ),
+                      child: Text(
+                        '${period.discountPercentageValue}% off',
+                        style: TextStyle(
+                          color: Palette.primary,
+                          fontSize: 10,
+                        ),
+                      ),
+                    )
+                ],
+              ),
+              Row(
+                children: [
+                  if (period.discount != null)
+                    Text(period.formatedValue + '  ',
+                        style: TextStyle(
+                          color: Palette.iconColor,
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: Palette.iconColor,
+                          fontSize: 16,
+                        )),
+                  Text(period.formatedTotalValue,
+                      style: TextStyle(
+                        color: Palette.textColor,
+                        fontSize: 16,
+                      )),
+                ],
+              ),
             ],
           ),
         ),

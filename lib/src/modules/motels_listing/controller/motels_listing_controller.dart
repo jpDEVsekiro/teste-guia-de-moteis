@@ -5,6 +5,8 @@ import 'package:guia_de_moteis/src/modules/motels_listing/data/interface/i_motel
 
 class MotelsListingController extends ChangeNotifier {
   ValueNotifier<List<MotelModel>> motels = ValueNotifier([]);
+  ValueNotifier<List<String>> filter = ValueNotifier([]);
+
   final IMotelsListingRepository motelsListingRepository =
       GetIt.I<IMotelsListingRepository>();
 
@@ -30,5 +32,19 @@ class MotelsListingController extends ChangeNotifier {
 
   MotelsListingController() {
     init();
+  }
+
+  void onTapFavorite(int index) {
+    motels.value[index].favorite = !motels.value[index].favorite;
+    motels.notifyListeners();
+  }
+
+  void filterByCategory(String category) {
+    if (filter.value.contains(category)) {
+      filter.value.remove(category);
+    } else {
+      filter.value.add(category);
+    }
+    filter.notifyListeners();
   }
 }

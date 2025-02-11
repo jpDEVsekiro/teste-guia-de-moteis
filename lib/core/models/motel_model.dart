@@ -9,6 +9,7 @@ class MotelModel {
   List<Suites>? suites;
   int? qtyRating;
   double? averageRating;
+  bool favorite;
 
   MotelModel(
       {required this.name,
@@ -18,9 +19,10 @@ class MotelModel {
       this.qtyFavorite,
       this.suites,
       this.qtyRating,
+      this.favorite = false,
       this.averageRating});
 
-  MotelModel.fromJson(Map<String, dynamic> json) {
+  MotelModel.fromJson(Map<String, dynamic> json, {this.favorite = false}) {
     name = json['fantasia'] ?? 'nome';
     logo = json['logo'];
     neighborhood = json['bairro'];
@@ -140,4 +142,6 @@ class Period {
   int get discountPercentageValue => ((discount! / value!) * 100).floor();
   String get formatedTotalValue =>
       'R\$${NumberFormat('###.00', 'pt_BT').format(totalValue)}';
+  String get formatedValue =>
+      'R\$${NumberFormat('###.00', 'pt_BT').format(value)}';
 }

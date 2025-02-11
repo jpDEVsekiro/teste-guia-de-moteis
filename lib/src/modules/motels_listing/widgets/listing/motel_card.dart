@@ -4,8 +4,10 @@ import 'package:guia_de_moteis/core/models/motel_model.dart';
 import 'package:guia_de_moteis/src/modules/motels_listing/widgets/listing/suites_carousel/suite_carousel.dart';
 
 class MotelCard extends StatelessWidget {
-  const MotelCard({super.key, required this.motelModel});
+  const MotelCard(
+      {super.key, required this.motelModel, required this.onTapFavorite});
   final MotelModel motelModel;
+  final void Function()? onTapFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -106,9 +108,14 @@ class MotelCard extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                Icon(
-                  Icons.favorite_border,
-                  color: Colors.red,
+                InkWell(
+                  onTap: onTapFavorite,
+                  child: Icon(
+                    motelModel.favorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    color: Colors.red,
+                  ),
                 )
               ],
             ),
