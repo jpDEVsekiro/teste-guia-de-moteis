@@ -10,7 +10,7 @@ class MoTelsListingRepository implements IMotelsListingRepository {
   Future<List<MotelModel>> getMotels() async {
     Map map = await httpRepository.get('1IXK');
     List<MotelModel> motels = [];
-    for (var item in map['data']['moteis']) {
+    for (var item in map['data']?['moteis'] ?? []) {
       motels.add(MotelModel.fromJson(item));
     }
     return motels;
