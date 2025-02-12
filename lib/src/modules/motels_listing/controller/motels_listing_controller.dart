@@ -27,7 +27,6 @@ class MotelsListingController extends ChangeNotifier {
   init() async {
     allMotels.value = await motelsListingRepository.getMotels();
     filterMotels.value = allMotels.value;
-    print('Motel: ${allMotels.value[0].name}');
   }
 
   MotelsListingController() {
