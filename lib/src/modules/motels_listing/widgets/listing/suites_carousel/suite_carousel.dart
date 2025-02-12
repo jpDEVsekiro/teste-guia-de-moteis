@@ -53,8 +53,11 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
                           ),
                         ),
                       ),
-                      Text(suites[itemIndex].name ?? '',
-                          style: TextStyle(fontSize: 16)),
+                      Text(
+                        suites[itemIndex].name ?? '',
+                        style: TextStyle(fontSize: 16),
+                        maxLines: 1,
+                      ),
                       if (suites[itemIndex].showQtyAvailable ?? false)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

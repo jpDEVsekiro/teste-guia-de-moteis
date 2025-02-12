@@ -68,11 +68,14 @@ class CarouselMotelOfferCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(suite.neighborhood,
-                              style: TextStyle(
-                                color: Palette.textColor,
-                                fontSize: 10,
-                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 230,
+                            child: Text(suite.neighborhood,
+                                style: TextStyle(
+                                  color: Palette.textColor,
+                                  fontSize: 10,
+                                )),
+                          ),
                         ],
                       ),
                     ],
