@@ -6,21 +6,23 @@ import 'package:guia_de_moteis/src/modules/motels_listing/widgets/listing/filter
 import 'package:guia_de_moteis/src/modules/motels_listing/widgets/listing/motel_card.dart';
 import 'package:guia_de_moteis/src/modules/motels_listing/widgets/motel_offer/carousel_motel_offer.dart';
 
-class MotelsListing extends StatefulWidget {
-  const MotelsListing({super.key});
+class MotelsListingPage extends StatefulWidget {
+  const MotelsListingPage({super.key});
 
   @override
-  State<MotelsListing> createState() => _MotelsListingState();
+  State<MotelsListingPage> createState() => _MotelsListingPageState();
 }
 
-class _MotelsListingState extends State<MotelsListing> {
+class _MotelsListingPageState extends State<MotelsListingPage> {
   MotelsListingController controller = MotelsListingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Palette.primary,
-        appBar: AppBarListingPage(),
+        appBar: AppBarListingPage(
+          key: Key('app_bar_listing_page'),
+        ),
         body: ClipRRect(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
@@ -42,6 +44,7 @@ class _MotelsListingState extends State<MotelsListing> {
                         builder: (context, value, child) {
                           return CarouselMotelOffer(
                             motels: value,
+                            key: Key('carousel_motel_offer'),
                           );
                         }),
                     ValueListenableBuilder(
@@ -55,6 +58,7 @@ class _MotelsListingState extends State<MotelsListing> {
                                 return Container(
                                   height: 47,
                                   child: ListView.separated(
+                                    key: Key('list_view_filters'),
                                     itemCount:
                                         controller.allCategoryItems.length + 1,
                                     shrinkWrap: true,
@@ -73,6 +77,7 @@ class _MotelsListingState extends State<MotelsListing> {
                                             padding:
                                                 const EdgeInsets.only(top: 10),
                                             child: FilterChipApp(
+                                              key: Key('filter_chip_filters'),
                                               label: 'Filtros',
                                               selected: false,
                                               height: 37,
@@ -113,6 +118,7 @@ class _MotelsListingState extends State<MotelsListing> {
                                       return Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: FilterChipApp(
+                                          key: Key('filter_chip_$index'),
                                           label: controller
                                                   .allCategoryItems[index]
                                                   .nome ??
@@ -146,11 +152,13 @@ class _MotelsListingState extends State<MotelsListing> {
                             valueListenable: controller.filterMotels,
                             builder: (context, value, child) {
                               return ListView.builder(
+                                key: Key('list_view_motels'),
                                 itemCount: value.length,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return MotelCard(
+                                    key: Key('motel_card_$index'),
                                     motelModel: value[index],
                                     filters: controller.filters.value,
                                     onTapFavorite: () =>

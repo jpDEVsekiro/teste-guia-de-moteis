@@ -27,6 +27,7 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
             SizedBox(
               height: 275,
               child: Card(
+                  key: Key('suite_card_${itemIndex}_${widget.key}'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),

@@ -113,8 +113,11 @@ class MotelCard extends StatelessWidget {
                 ),
                 Spacer(),
                 InkWell(
+                  key: Key('favorite_button_${key.toString()}'),
                   onTap: onTapFavorite,
                   child: Icon(
+                    key: Key(
+                        '${motelModel.favorite}_favorite_${key.toString()}'),
                     motelModel.favorite
                         ? Icons.favorite_rounded
                         : Icons.favorite_border_rounded,
@@ -128,6 +131,7 @@ class MotelCard extends StatelessWidget {
             height: 10,
           ),
           SuiteCarousel(
+            key: Key('carousel_motel_offer_${key.toString()}'),
             suites: motelModel.filterSuites(filters),
           ),
         ],
