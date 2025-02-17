@@ -47,12 +47,18 @@ flutter run
 
 # Como Rodar os Testes
 
-Para rodar os testes unitários é necessário rodar o comando `flutter test` no terminal.
+Para rodar os [testes unitários](https://docs.flutter.dev/cookbook/testing/unit/introduction) é necessário rodar o comando `flutter test` no terminal.
 ```shell
 flutter test
 ```
+<div >&nbsp;</div>
 
-Para rodar os testes de integração é necessário rodar o comando `flutter test integration_test/all_integration_test.dart` no terminal.
+https://github.com/user-attachments/assets/41478661-68c0-4b98-8d7b-97d37a79f5f1
+
+Para rodar os [testes de integração](https://docs.flutter.dev/testing/integration-tests) é necessário rodar o comando `flutter test integration_test/all_integration_test.dart` no terminal.
 ```shell
 flutter test integration_test/all_integration_test.dart
 ```
+<div >&nbsp;</div>
+
+https://github.com/user-attachments/assets/5e3dc6bb-ca83-4df9-a138-302f96ddca9d
