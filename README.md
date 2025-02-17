@@ -1,15 +1,14 @@
 ![image](https://github.com/user-attachments/assets/fb8ec28c-2d0f-4740-8dff-7d6f6ab618fd)
 
 <h1 align="center">
-   <b>
-     
  Teste Técnico Guia de Motéis
-   </b>
 </h1>
 
-Olá, bem vindo ao meu teste!
-
+<div><a href="https://git.io/typing-svg"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=&size=18&duration=3000&pause=1000&color=F7F7F7&width=400&lines=Ol%C3%A1!+Bem+vindo+ao+meu+teste+%F0%9F%91%8B" alt="Typing SVG" /></a></div>
 Este aplicativo tem como objetivo ajudar os usuários a encontrarem motéis de forma rápida e eficiente, oferecendo informações sobre localização, preços e avaliações. Neste projeto você irá explorar funcionalidades da tela principal do app.
+<div >&nbsp;</div>
+   
+https://github.com/user-attachments/assets/35ced41b-9e78-488a-9e0e-d4e0538eb1ae
 
 # Gerenciador de Estado
 Guia de Motéis utiliza [ChangeNotifier](https://docs.flutter.dev/data-and-backend/state-mgmt/simple) como gerenciador de estado, sendo uma solução leve e rápida para Flutter, que permite criar um projeto organizado e com código limpo de forma nativa sem depender de nenhum package.
