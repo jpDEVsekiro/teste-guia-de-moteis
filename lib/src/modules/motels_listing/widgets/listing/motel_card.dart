@@ -131,7 +131,7 @@ class MotelCard extends StatelessWidget {
             height: 10,
           ),
           SuiteCarousel(
-            key: Key('carousel_motel_offer_${key.toString()}'),
+            key: Key('suite_carousel_${key.toString()}'),
             suites: motelModel.filterSuites(filters),
           ),
         ],

@@ -36,6 +36,7 @@ class _CarouselMotelOfferState extends State<CarouselMotelOffer> {
         itemCount: suites.length,
         itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
           return CarouselMotelOfferCard(
+            key: Key('carousel_motel_offer_card_$itemIndex'),
             suite: suites[itemIndex],
           );
         },

@@ -94,6 +94,8 @@ class _MotelsListingPageState extends State<MotelsListingPage> {
                                               left: 0,
                                               top: 0,
                                               child: Container(
+                                                key: Key(
+                                                    'filters_counter_${controller.filters.value.length}'),
                                                 alignment: Alignment.center,
                                                 margin: EdgeInsets.zero,
                                                 padding: EdgeInsets.all(5),

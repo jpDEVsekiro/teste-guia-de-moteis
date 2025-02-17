@@ -19,6 +19,7 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
   Widget build(BuildContext context) {
     if (suites.isEmpty) return SizedBox();
     return CarouselSlider.builder(
+      key: Key('carousel_suite_${widget.key}'),
       carouselController: _controller,
       itemCount: suites.length,
       itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
